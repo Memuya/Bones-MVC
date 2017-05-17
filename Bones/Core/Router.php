@@ -6,6 +6,9 @@
  */
 namespace Bones\Core;
 
+use Bones\Exception\MiddlewareNotFoundException;
+use Bones\Exception\RouteNotFoundException;
+
 class Router {
     private $routes = [];
 
@@ -98,12 +101,12 @@ class Router {
         }
         // No route found
         if(!isset($matched_route)) {
-            throw new \Bones\Exception\RouteNotFoundException('Route not found.');
+            throw new RouteNotFoundException('Route not found.');
         }
 
         // Check if any middleware has been registered
         $this->checkMiddleware($matched_route['middleware']);
-
+        
         $controller = new $matched_route['controller'];
 
         return call_user_func_array([$controller, $matched_route['action']], $params);
@@ -115,8 +118,8 @@ class Router {
      * @param string $middleware
      */
     private function checkMiddleware($middleware) {
-        if(!empty($middleware) && !class_exists($middleware)) {
-            throw new \Exception('Middleware not found.');
+        if(!empty($middleware) && !class_exists($middleware, false)) {
+            throw new MiddlewareNotFoundException('Middleware not found.');
         } else if(!empty($middleware)) {
             return (new $middleware())->handle();
         }

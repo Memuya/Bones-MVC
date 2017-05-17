@@ -30,6 +30,8 @@ try {
 
 } catch(\Bones\Exception\RouteNotFoundException $ex) {
     die($ex->getMessage());
+} catch(\Bones\Exception\MiddlewareNotFoundException $ex) {
+    die($ex->getMessage());
 } catch(\Exception $ex) {
     die($ex->getMessage());
 }
