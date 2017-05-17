@@ -1,0 +1,7 @@
+ErrorDocument 404 /Bones/Views/errors/404.php
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond $1 !\.(html)
+RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]
