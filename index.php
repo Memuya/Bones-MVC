@@ -30,4 +30,6 @@ try {
 
 } catch(\Bones\Exception\RouteNotFoundException $ex) {
     die($ex->getMessage());
+} catch(\Exception $ex) {
+    die($ex->getMessage());
 }

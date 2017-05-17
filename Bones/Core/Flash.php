@@ -30,9 +30,10 @@ class Flash {
     }
 
     /**
-     * Set a message to be flashed
+     * Set a message to be flashed or pass an
+     * array to set multiple messages to be flashed
      *
-     * @param type $type
+     * @param string $type
      * @param string|array $data
      */
     public static function set($type, $data) {

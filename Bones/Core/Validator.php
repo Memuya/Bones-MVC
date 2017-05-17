@@ -1,6 +1,6 @@
 <?php
 /**
- * Validates input, mostlu used with form data.
+ * Validates input, mostly used with form data.
  *
  * @author Mehmet Uyanik <mehmet.uyanik@live.com.au>
  */

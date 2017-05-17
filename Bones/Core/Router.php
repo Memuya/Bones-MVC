@@ -96,7 +96,6 @@ class Router {
                 break;
             }
         }
-
         // No route found
         if(!isset($matched_route)) {
             throw new \Bones\Exception\RouteNotFoundException('Route not found.');

@@ -14,7 +14,7 @@ trait Redirect {
     *
     * @param string $to
     * @param boolean $go    If you want to just use $this->redirect(),
-    *                       make this parameter 'true`
+    *                       set this parameter to 'true`
     * @return Redirect
     */
     public function redirect($route, $go = false) {
@@ -27,7 +27,10 @@ trait Redirect {
     }
 
     /**
-    * Pass data along with the redirect
+    * Pass data along with the redirect. This data can
+    * be retrieved using the old() function within a view
+    *
+    * E.G. old('first_name')
     *
     * @param array $parameters
     * @return Redirect

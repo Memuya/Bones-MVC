@@ -9,7 +9,7 @@ namespace Bones\Controller;
 
 class PageController extends Controller {
     public function home() {
-        $this->title = "Welcome";
-        $this->render("home");
+        $this->title = 'Welcome';
+        $this->render('home');
     }
 }
