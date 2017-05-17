@@ -65,8 +65,6 @@ class Router {
         $route = trim($route, '/');
         $params = [];
 
-        //dump($this->routes, true);
-
         // Loop through all our routes if an exact match could not be found
         foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $key => $routes) {
 
@@ -80,7 +78,6 @@ class Router {
             $_route = explode('/', $route);
             $_key   = explode('/', $key);
 
-            //$pattern = "/".str_replace('/', '\/', $key).".*?/";
             $pattern = "/".str_replace('/', '\/', $key)."/";
             preg_match($pattern, $route, $match);
 
@@ -89,28 +86,12 @@ class Router {
             * amount of parameters (that is not equal to zero,
             * or else it would have be caught in the loop above)
             */
-            //(count($routes['params']) === (count($match) - 1)) instead of (count($_route) === count($_key))
             if(!empty($match) && count($routes['params']) !== 0 && (count($_route) === count($_key))) {
-                //$matched_route = $this->routes[$_SERVER['REQUEST_METHOD']][$match[0]];
                 $matched_route = $this->routes[$_SERVER['REQUEST_METHOD']][$key];
 
                 // Remove the route name so we're left with the paramters
                  array_shift($match);
                  $params = $match;
-
-                 //dump($params, true);
-
-                 /**
-                  * Set the parameters.
-                  * We do this by looping by the amount of paramters that
-                  * are expected and adding those values to the $params array.
-                  */
-                /*foreach($matched_route['params'] as $_params) {
-                    $params[] = end($_route);
-                    array_pop($_route);
-                }
-
-                $params = array_reverse($params);*/
 
                 break;
             }
