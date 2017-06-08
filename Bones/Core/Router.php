@@ -35,15 +35,13 @@ class Router {
          * them with a regex pattern that matches
          * anything within the route.
          */
-        if(strpos($route, '{') !== false) {
-            preg_match_all('/{.*?}/', $route, $params);
+        preg_match_all('/{.*?}/', $route, $params);
 
-            if(!empty($params[0])) {
-                $params = str_replace(['{', '}'], '', $params[0]);
-            }
-
-            $route = preg_replace('/\/{.*?}/', '/(.+)', $route);
+        if(!empty($params[0])) {
+            $params = str_replace(['{', '}'], '', $params[0]);
         }
+
+        $route = preg_replace('/\/{.*?}/', '/(.+)', $route);
 
         // This is the only way I could get the namespace
         // to work for middleware! I don't know why..
@@ -68,7 +66,7 @@ class Router {
         $route = trim($route, '/');
         $params = [];
 
-        // Loop through all our routes if an exact match could not be found
+        // Loop through all our routes
         foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $key => $routes) {
 
             // Check for an exact match to the route name
@@ -106,7 +104,7 @@ class Router {
 
         // Check if any middleware has been registered
         $this->checkMiddleware($matched_route['middleware']);
-        
+
         $controller = new $matched_route['controller'];
 
         return call_user_func_array([$controller, $matched_route['action']], $params);
@@ -123,5 +121,49 @@ class Router {
         } else if(!empty($middleware)) {
             return (new $middleware())->handle();
         }
+    }
+
+    /**
+     * Add a GET route
+     *
+     * @param string $route         The route given in the URL
+     * @param string $callback      PageController@methodName
+     * @param string $middleware    Name of the middleware class to check
+     */
+    public function get($route, $callback, $middleware = null) {
+        $this->add('GET', $route, $callback, $middleware = null);
+    }
+
+    /**
+     * Add a POST route
+     *
+     * @param string $route         The route given in the URL
+     * @param string $callback      PageController@methodName
+     * @param string $middleware    Name of the middleware class to check
+     */
+    public function post($route, $callback, $middleware = null) {
+        $this->add('POST', $route, $callback, $middleware = null);
+    }
+
+    /**
+     * Add a PUT route
+     *
+     * @param string $route         The route given in the URL
+     * @param string $callback      PageController@methodName
+     * @param string $middleware    Name of the middleware class to check
+     */
+    public function put($route, $callback, $middleware = null) {
+        $this->add('PUT', $route, $callback, $middleware = null);
+    }
+
+    /**
+     * Add a DELETE route
+     *
+     * @param string $route         The route given in the URL
+     * @param string $callback      PageController@methodName
+     * @param string $middleware    Name of the middleware class to check
+     */
+    public function delete($route, $callback, $middleware = null) {
+        $this->add('DELETE', $route, $callback, $middleware = null);
     }
 }
