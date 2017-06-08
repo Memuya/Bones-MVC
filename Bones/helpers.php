@@ -40,3 +40,13 @@ function dump($data, $die = false) {
 
     if($die) die;
 }
+
+/**
+ * Load config data from the App container
+ *
+ * @param string $key
+ * @return array
+ */
+function config($key) {
+    return \Bones\Core\App::get($key);
+}

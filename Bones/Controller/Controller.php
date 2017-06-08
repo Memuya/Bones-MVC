@@ -8,6 +8,7 @@
 namespace Bones\Controller;
 
 use Bones\Core\Log;
+use Bones\Core\Session;
 use Bones\Core\Redirect;
 
 class Controller {
@@ -36,7 +37,7 @@ class Controller {
     public function render($view, array $data = null, $template = "layout") {
         // Set title for layout
         $title = $this->title;
-        $appName = APP_NAME;
+        $appName = config('app')['app_name'];
 
         // Pass the controller
         $controller = $this;
@@ -56,8 +57,7 @@ class Controller {
         require_once "Bones/Views/template/{$template}.php";
 
         // Destroy any flash messages after sending them through
-        unset($_SESSION['flash']);
-        unset($_SESSION['with']);
+        Session::destroy(['flash', 'with']);
 
         ob_end_flush();
     }

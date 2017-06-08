@@ -13,6 +13,20 @@ class Router {
     private $routes = [];
 
     /**
+     * Load the route list
+     *
+     * @param string $file
+     */
+    public static function load($file) {
+        // Required to load $router inside $file
+        $router = new static;
+
+        require_once $file;
+
+        return $router;
+    }
+
+    /**
      * Add a route
      *
      * @param string $method        GET|POST|PUT|DELETE

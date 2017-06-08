@@ -7,6 +7,8 @@
 
 namespace Bones\Core;
 
+use Bones\Core\App;
+
 class DB {
     protected static $connected = false;
     public static $db;
@@ -29,7 +31,7 @@ class DB {
         //allows only one active connection to the database to exist no matter how many times it is called
         if(!self::$connected) {
             //create a PDO connection to the database
-            self::$db = new \PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS );
+            self::$db = new \PDO("mysql:host=".config('db')['host'].";dbname=".config('db')['name'], config('db')['user'], config('db')['pass'] );
             self::$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             self::$db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
             //set connection to true so we don't re-connect
