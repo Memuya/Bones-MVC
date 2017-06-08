@@ -97,9 +97,10 @@ class Router {
                 break;
             }
         }
+
         // No route found
         if(!isset($matched_route)) {
-            throw new RouteNotFoundException('Route not found.');
+            throw new \Bones\Exception\RouteNotFoundException('Route not found.');
         }
 
         // Check if any middleware has been registered
@@ -107,7 +108,7 @@ class Router {
 
         $controller = new $matched_route['controller'];
 
-        return call_user_func_array([$controller, $matched_route['action']], $params);
+        return $controller->$matched_route['action'](...$params);
     }
 
     /**
