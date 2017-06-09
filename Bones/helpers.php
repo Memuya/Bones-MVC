@@ -26,7 +26,7 @@ function old($key) {
  * @return string
  */
 function url($route) {
-    return URL.$route;
+    return config('app')['url'].$route;
 }
 
 /**

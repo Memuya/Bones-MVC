@@ -17,10 +17,13 @@ App::bind('app', require 'config/app.php');
 // Load database connection
 $db = new DB;
 
-$route = isset($_GET['route']) && !empty($_GET['route']) ? $_GET['route'] : 'home';
 
+// Dispatch route
 try {
+
+    $route = isset($_GET['route']) && !empty($_GET['route']) ? $_GET['route'] : 'home';
     Router::load('routes.php')->dispatch($route);
+
 } catch(\Bones\Exception\RouteNotFoundException $ex) {
     die($ex->getMessage());
 } catch(\Bones\Exception\MiddlewareNotFoundException $ex) {

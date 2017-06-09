@@ -114,7 +114,7 @@ class Router {
 
         // No route found
         if(!isset($matched_route)) {
-            throw new \Bones\Exception\RouteNotFoundException('Route not found.');
+            throw new RouteNotFoundException('Route not found.');
         }
 
         // Check if any middleware has been registered
